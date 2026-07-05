@@ -4,6 +4,8 @@ import com.build.paymentgateway.common.enums.BusinessType;
 import com.build.paymentgateway.common.enums.MerchantStatus;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -23,7 +25,6 @@ public class Merchant {
     @Column(nullable = false, length = 150)
     private String businessName;
 
-    @Column(length = 50)
     @Enumerated(EnumType.STRING)
     private BusinessType businessType;
 
@@ -33,9 +34,9 @@ public class Merchant {
     @Column(length = 200)
     private String websiteUrl;
 
-    @Column(length = 50)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private MerchantStatus status;
+    private MerchantStatus status = MerchantStatus.PENDING_KYC;
 
     @Column(length = 20)
     private String gstId;
@@ -51,4 +52,7 @@ public class Merchant {
 
     @Column(length = 100)
     private String settlementBankIfscCode;
+
+    @OneToMany(mappedBy = "merchant")
+    private Set<AppUser> appUsers = new HashSet<>();
 }
