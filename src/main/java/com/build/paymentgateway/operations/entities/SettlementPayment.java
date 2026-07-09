@@ -1,10 +1,11 @@
 package com.build.paymentgateway.operations.entities;
 
+import com.build.paymentgateway.common.entity.CreatedAuditable;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "settlement_payment")
-public class SettlementPayment {
+public class SettlementPayment extends CreatedAuditable {
 
     @EmbeddedId
     private SettlementPaymentId settlementPaymentId;

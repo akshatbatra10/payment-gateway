@@ -1,6 +1,6 @@
 package com.build.paymentgateway.payment.entities;
 
-import com.build.paymentgateway.common.entity.Money;
+import com.build.paymentgateway.common.entity.CreatedAuditable;
 import com.build.paymentgateway.common.enums.PaymentEvent;
 import com.build.paymentgateway.common.enums.PaymentStatus;
 import jakarta.persistence.*;
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "payment_transition_log")
-public class PaymentTransitionLog {
+public class PaymentTransitionLog extends CreatedAuditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

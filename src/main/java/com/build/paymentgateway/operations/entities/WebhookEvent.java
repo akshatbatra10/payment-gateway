@@ -1,5 +1,6 @@
 package com.build.paymentgateway.operations.entities;
 
+import com.build.paymentgateway.common.entity.Auditable;
 import com.build.paymentgateway.common.enums.WebhookEventStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "webhook_event")
-public class WebhookEvent {
+public class WebhookEvent extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

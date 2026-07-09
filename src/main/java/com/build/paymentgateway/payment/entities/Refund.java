@@ -1,5 +1,6 @@
 package com.build.paymentgateway.payment.entities;
 
+import com.build.paymentgateway.common.entity.Auditable;
 import com.build.paymentgateway.common.entity.Money;
 import com.build.paymentgateway.common.enums.RefundStatus;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "refund")
-public class Refund {
+public class Refund extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

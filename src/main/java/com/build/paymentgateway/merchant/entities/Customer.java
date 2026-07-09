@@ -1,12 +1,13 @@
 package com.build.paymentgateway.merchant.entities;
 
+import com.build.paymentgateway.common.entity.Auditable;
 import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "customer")
-public class Customer {
+public class Customer extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

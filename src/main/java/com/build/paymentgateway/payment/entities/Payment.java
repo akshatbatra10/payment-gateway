@@ -1,5 +1,6 @@
 package com.build.paymentgateway.payment.entities;
 
+import com.build.paymentgateway.common.entity.Auditable;
 import com.build.paymentgateway.common.entity.Money;
 import com.build.paymentgateway.common.enums.PaymentMethod;
 import com.build.paymentgateway.common.enums.PaymentStatus;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "payment")
-public class Payment {
+public class Payment extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

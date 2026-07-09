@@ -1,5 +1,6 @@
 package com.build.paymentgateway.merchant.entities;
 
+import com.build.paymentgateway.common.entity.Auditable;
 import com.build.paymentgateway.common.enums.Environment;
 import jakarta.persistence.*;
 
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "api_key")
-public class ApiKey {
+public class ApiKey extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

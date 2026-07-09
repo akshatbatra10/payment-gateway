@@ -1,5 +1,6 @@
 package com.build.paymentgateway.vault.entities;
 
+import com.build.paymentgateway.common.entity.Auditable;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -7,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "vault_card")
-public class VaultCard {
+public class VaultCard extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
