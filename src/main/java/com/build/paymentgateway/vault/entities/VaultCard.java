@@ -2,7 +2,7 @@ package com.build.paymentgateway.vault.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -37,5 +37,5 @@ public class VaultCard {
     @Column(nullable = false)
     private Integer expiryYear;
 
-    private LocalDateTime deletedAt;
+    private Instant deletedAt;
 }

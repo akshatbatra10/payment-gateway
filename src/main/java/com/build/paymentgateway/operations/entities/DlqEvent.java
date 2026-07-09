@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,7 +30,7 @@ public class DlqEvent {
     @Column(columnDefinition = "jsonb", nullable = false)
     private Map<String, Object> payload;
 
-    private LocalDateTime movedAt;
+    private Instant movedAt;
 
-    private LocalDateTime replayed_at;
+    private Instant replayed_at;
 }

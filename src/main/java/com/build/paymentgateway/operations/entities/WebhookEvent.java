@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
@@ -40,14 +40,14 @@ public class WebhookEvent {
     @Column(nullable = false)
     private Integer attempts = 0;
 
-    private LocalDateTime nextRetryAt;
+    private Instant nextRetryAt;
 
-    private LocalDateTime lastRetryAt;
+    private Instant lastRetryAt;
 
     private Integer lastResponseCode;
 
     @Column(length = 1000)
     private String lastResponseBody;
 
-    private LocalDateTime deliveredAt;
+    private Instant deliveredAt;
 }

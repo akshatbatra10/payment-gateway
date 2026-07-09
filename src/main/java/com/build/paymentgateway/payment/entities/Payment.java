@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
@@ -52,13 +52,13 @@ public class Payment {
 
     private String errorDescription;
 
-    private LocalDateTime authorizedAt;
+    private Instant authorizedAt;
 
-    private LocalDateTime capturedAt;
+    private Instant capturedAt;
 
-    private LocalDateTime failedAt;
+    private Instant failedAt;
 
-    private LocalDateTime refundedAt;
+    private Instant refundedAt;
 
-    private LocalDateTime settledAt;
+    private Instant settledAt;
 }

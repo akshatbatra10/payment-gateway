@@ -2,7 +2,7 @@ package com.build.paymentgateway.vault.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -26,5 +26,5 @@ public class CardToken {
     @Column(nullable = false)
     private UUID merchantId;
 
-    private LocalDateTime revokedAt;
+    private Instant revokedAt;
 }

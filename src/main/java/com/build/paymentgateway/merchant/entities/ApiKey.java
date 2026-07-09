@@ -3,7 +3,7 @@ package com.build.paymentgateway.merchant.entities;
 import com.build.paymentgateway.common.enums.Environment;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -34,9 +34,9 @@ public class ApiKey {
     @Column(nullable = false)
     private boolean enabled = true;
 
-    private LocalDateTime lastUsedAt;
+    private Instant lastUsedAt;
 
-    private LocalDateTime rotatedAt;
+    private Instant rotatedAt;
 
-    private LocalDateTime gracePeriodExpiresAt;
+    private Instant gracePeriodExpiresAt;
 }

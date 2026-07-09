@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
@@ -44,5 +44,5 @@ public class Refund {
     @Column(columnDefinition = "jsonb")
     private Map<String, Object> notes;
 
-    private LocalDateTime processedAt;
+    private Instant processedAt;
 }

@@ -4,7 +4,7 @@ import com.build.paymentgateway.common.entity.Money;
 import com.build.paymentgateway.common.enums.SettlementStatus;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -90,5 +90,5 @@ public class Settlement {
     @Column(nullable = false)
     private String bankReference;
 
-    private LocalDateTime processed;
+    private Instant processed;
 }

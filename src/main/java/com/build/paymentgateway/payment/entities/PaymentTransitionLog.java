@@ -5,7 +5,7 @@ import com.build.paymentgateway.common.enums.PaymentEvent;
 import com.build.paymentgateway.common.enums.PaymentStatus;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -35,5 +35,5 @@ public class PaymentTransitionLog {
     @Column(length = 100)
     private String actor;
 
-    private LocalDateTime occurredAt;
+    private Instant occurredAt;
 }

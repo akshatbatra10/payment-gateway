@@ -52,7 +52,4 @@ public class Merchant {
 
     @Column(length = 100)
     private String settlementBankIfscCode;
-
-    @OneToMany(mappedBy = "merchant")
-    private Set<AppUser> appUsers = new HashSet<>();
 }
