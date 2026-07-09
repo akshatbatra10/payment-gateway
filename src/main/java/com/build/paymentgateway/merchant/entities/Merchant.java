@@ -4,6 +4,7 @@ import com.build.paymentgateway.common.entity.Auditable;
 import com.build.paymentgateway.common.enums.BusinessType;
 import com.build.paymentgateway.common.enums.MerchantStatus;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "merchant")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Merchant extends Auditable {
 
     @Id

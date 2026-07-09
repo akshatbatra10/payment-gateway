@@ -3,11 +3,17 @@ package com.build.paymentgateway.merchant.entities;
 import com.build.paymentgateway.common.entity.Auditable;
 import com.build.paymentgateway.common.enums.UserRole;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "app_user")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class AppUser extends Auditable {
 
     @Id
