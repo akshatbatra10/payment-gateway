@@ -1,16 +1,20 @@
 package com.build.paymentgateway.merchant.services.impl;
 
 import com.build.paymentgateway.common.exception.ResourceNotFoundException;
+import com.build.paymentgateway.common.util.RandomizerUtil;
 import com.build.paymentgateway.merchant.dtos.request.CreateApiKeyRequest;
 import com.build.paymentgateway.merchant.dtos.response.ApiKeyResponse;
+import com.build.paymentgateway.merchant.dtos.response.CreateApiKeyResponse;
 import com.build.paymentgateway.merchant.entities.ApiKey;
 import com.build.paymentgateway.merchant.entities.Merchant;
 import com.build.paymentgateway.merchant.repository.ApiKeyRepository;
 import com.build.paymentgateway.merchant.repository.MerchantRepository;
 import com.build.paymentgateway.merchant.services.ApiKeyService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,12 +25,13 @@ public class ApiKeyServiceImpl implements ApiKeyService {
     private final MerchantRepository merchantRepository;
 
     @Override
-    public ApiKeyResponse createApiKey(UUID merchantId, CreateApiKeyRequest request) {
+    @Transactional
+    public CreateApiKeyResponse createApiKey(UUID merchantId, CreateApiKeyRequest request) {
         Merchant merchant = merchantRepository.findById(merchantId)
                 .orElseThrow(() -> new ResourceNotFoundException("merchant", ""));
 
-        String apiKeyId = "apg_" + request.environment().name().toUpperCase() + "big_secret";
-        String rawSecret = "big_random_secret";
+        String apiKeyId = "apg_" + request.environment().name().toLowerCase() + "_" + RandomizerUtil.randomBase64(24);
+        String rawSecret = RandomizerUtil.randomBase64(40);
 
         ApiKey apiKey = ApiKey.builder()
                 .merchant(merchant)
@@ -37,6 +42,35 @@ public class ApiKeyServiceImpl implements ApiKeyService {
 
         apiKey = apiKeyRepository.save(apiKey);
 
-        return new ApiKeyResponse(apiKey.getId(), apiKeyId, rawSecret, request.environment());
+        return new CreateApiKeyResponse(apiKey.getId(), apiKeyId, rawSecret, request.environment());
+    }
+
+    @Override
+    public List<ApiKeyResponse> listByMerchant(UUID merchantId) {
+        Merchant merchant = merchantRepository.findById(merchantId)
+                .orElseThrow(() -> new ResourceNotFoundException("merchant", ""));
+
+        List<ApiKey> apiKeys = apiKeyRepository.findByMerchant_Id(merchantId);
+
+        return apiKeys.stream()
+                .map(apiKey -> new ApiKeyResponse(
+                        apiKey.getId(),
+                        apiKey.getApiKey(),
+                        apiKey.getEnvironment(),
+                        apiKey.isEnabled(),
+                        apiKey.getLastUsedAt(),
+                        null
+                ))
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public void deleteApiKey(UUID merchantId, UUID apiKeyId) {
+        ApiKey apiKey = apiKeyRepository.findById(apiKeyId)
+                .filter(key -> key.getMerchant().getId().equals(merchantId))
+                .orElseThrow(() -> new ResourceNotFoundException("ApiKey", apiKeyId));
+
+        apiKey.setEnabled(false);
     }
 }

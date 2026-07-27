@@ -2,15 +2,12 @@ package com.build.paymentgateway.merchant.dtos.response;
 
 import com.build.paymentgateway.common.enums.Environment;
 
-import java.time.Instant;
 import java.util.UUID;
 
-public record ApiKeyResponse(
+public record CreateApiKeyResponse(
         UUID id,
         String keyId,
-        Environment environment,
-        boolean enabled,
-        Instant lastUsedAt,
-        Instant createdAt
+        String keySecret,
+        Environment environment
 ) {
 }
