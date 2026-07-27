@@ -40,4 +40,9 @@ public class ApiKeyController {
         apiKeyService.revoke(merchantId, keyId);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(path = "/{keyId}/rotate")
+    public ResponseEntity<CreateApiKeyResponse> rotate(@PathVariable UUID merchantId, @PathVariable UUID keyId) {
+        return ResponseEntity.ok(apiKeyService.rotate(merchantId, keyId));
+    }
 }

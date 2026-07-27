@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ApiKeyService {
-    public CreateApiKeyResponse createApiKey(UUID merchantId, CreateApiKeyRequest request);
-    public List<ApiKeyResponse> listByMerchant(UUID merchantId);
-    public void deleteApiKey(UUID merchantId, UUID apiKeyId);
+    CreateApiKeyResponse createApiKey(UUID merchantId, CreateApiKeyRequest request);
+    List<ApiKeyResponse> listByMerchant(UUID merchantId);
+    void revoke(UUID merchantId, UUID apiKeyId);
+    CreateApiKeyResponse rotate(UUID merchantId, UUID keyId);
 }

@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,11 +67,33 @@ public class ApiKeyServiceImpl implements ApiKeyService {
 
     @Override
     @Transactional
-    public void deleteApiKey(UUID merchantId, UUID apiKeyId) {
+    public void revoke(UUID merchantId, UUID apiKeyId) {
         ApiKey apiKey = apiKeyRepository.findById(apiKeyId)
                 .filter(key -> key.getMerchant().getId().equals(merchantId))
                 .orElseThrow(() -> new ResourceNotFoundException("ApiKey", apiKeyId));
 
         apiKey.setEnabled(false);
+    }
+
+    @Override
+    @Transactional
+    public CreateApiKeyResponse rotate(UUID merchantId, UUID apiKeyId) {
+        ApiKey apiKey = apiKeyRepository.findById(apiKeyId)
+                .filter(key -> key.getMerchant().getId().equals(merchantId))
+                .orElseThrow(() -> new ResourceNotFoundException("ApiKey", apiKeyId));
+
+        String newRawSecret = RandomizerUtil.randomBase64(40);
+        apiKey.setPrevApiSecretHash(apiKey.getApiSecretHash());
+        apiKey.setApiSecretHash(newRawSecret);
+        apiKey.setRotatedAt(Instant.now());
+        apiKey.setGracePeriodExpiresAt(Instant.now().plusSeconds(60 * 60 * 24));
+        apiKey =  apiKeyRepository.save(apiKey);
+
+        return new CreateApiKeyResponse(
+                apiKey.getId(),
+                apiKey.getApiKey(),
+                newRawSecret,
+                apiKey.getEnvironment()
+        );
     }
 }

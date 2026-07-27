@@ -31,6 +31,9 @@ public class ApiKey extends Auditable {
     @Column(length = 150, nullable = false)
     private String apiSecretHash;
 
+    @Column(length = 150)
+    private String prevApiSecretHash;
+
     @Column(length = 100, nullable = false)
     private String webhookSecretHash;
 
