@@ -6,9 +6,9 @@ import lombok.Getter;
 public class ResourceNotFoundException extends RuntimeException {
 
     private final String resourceName;
-    private final String identifier;
+    private final Object identifier;
 
-    public ResourceNotFoundException(String resourceName, String identifier) {
+    public ResourceNotFoundException(String resourceName, Object identifier) {
         super("Resource " + resourceName + " with identifier " + identifier + " not found");
         this.resourceName = resourceName;
         this.identifier = identifier;

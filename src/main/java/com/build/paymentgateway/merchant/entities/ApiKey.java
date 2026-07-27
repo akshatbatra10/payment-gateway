@@ -3,12 +3,18 @@ package com.build.paymentgateway.merchant.entities;
 import com.build.paymentgateway.common.entity.Auditable;
 import com.build.paymentgateway.common.enums.Environment;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(name = "api_key")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ApiKey extends Auditable {
 
     @Id
@@ -33,6 +39,7 @@ public class ApiKey extends Auditable {
     private Environment environment;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean enabled = true;
 
     private Instant lastUsedAt;

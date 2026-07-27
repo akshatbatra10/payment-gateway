@@ -30,7 +30,7 @@ public class Payment extends Auditable {
     @Embedded
     private Money amount;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String idempotencyKey;
 
     @Enumerated(EnumType.STRING)
