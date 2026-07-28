@@ -10,9 +10,9 @@ import com.build.paymentgateway.merchant.entities.Merchant;
 import com.build.paymentgateway.merchant.repository.ApiKeyRepository;
 import com.build.paymentgateway.merchant.repository.MerchantRepository;
 import com.build.paymentgateway.merchant.services.ApiKeyService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
