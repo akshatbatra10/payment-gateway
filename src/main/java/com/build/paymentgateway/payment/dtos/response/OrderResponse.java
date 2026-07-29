@@ -1,4 +1,4 @@
-package com.build.paymentgateway.payment.dtos;
+package com.build.paymentgateway.payment.dtos.response;
 
 import com.build.paymentgateway.common.entity.Money;
 import com.build.paymentgateway.common.enums.OrderStatus;

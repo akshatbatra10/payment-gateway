@@ -3,7 +3,6 @@ package com.build.paymentgateway.payment.entities;
 import com.build.paymentgateway.common.entity.Auditable;
 import com.build.paymentgateway.common.entity.Money;
 import com.build.paymentgateway.common.enums.OrderStatus;
-import com.build.paymentgateway.merchant.entities.Merchant;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;

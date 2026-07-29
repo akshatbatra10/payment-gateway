@@ -1,4 +1,4 @@
-package com.build.paymentgateway.payment.dtos;
+package com.build.paymentgateway.payment.dtos.request;
 
 import com.build.paymentgateway.common.entity.Money;
 import jakarta.validation.constraints.NotNull;
