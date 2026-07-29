@@ -116,8 +116,6 @@ public class OrderServiceImpl implements OrderService {
 
         List<Payment> payments = paymentRepository.findByOrder_Id(orderId);
 
-        return payments.stream()
-                .map(paymentMapper::toPaymentResponse)
-                .collect(Collectors.toList());
+        return paymentMapper.toPaymentResponseList(payments);
     }
 }
