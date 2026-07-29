@@ -2,11 +2,20 @@ package com.build.paymentgateway.merchant.entities;
 
 import com.build.paymentgateway.common.entity.Auditable;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "merchant_webhook_config")
+@Table(name = "merchant_webhook_config",
+        indexes = {
+                @Index(name = "idx_webhook_merchant_id", columnList = "merchant_id, enabled")
+        })
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MerchantWebhookConfig extends Auditable {
 
     @Id

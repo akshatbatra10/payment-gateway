@@ -7,6 +7,7 @@ import com.build.paymentgateway.merchant.dtos.request.MerchantSignupRequest;
 import com.build.paymentgateway.merchant.dtos.response.MerchantResponse;
 import com.build.paymentgateway.merchant.entities.AppUser;
 import com.build.paymentgateway.merchant.entities.Merchant;
+import com.build.paymentgateway.merchant.mapper.MerchantMapper;
 import com.build.paymentgateway.merchant.repository.AppUserRepository;
 import com.build.paymentgateway.merchant.repository.MerchantRepository;
 import com.build.paymentgateway.merchant.services.AuthService;
@@ -21,6 +22,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final MerchantRepository merchantRepository;
     private final AppUserRepository appUserRepository;
+    private final MerchantMapper merchantMapper;
 
     @Override
     @Transactional
@@ -29,13 +31,8 @@ public class AuthServiceImpl implements AuthService {
             throw new DuplicateResourceException("DUPLICATE_MERCHANT_EMAIL",
                     "Merchant with email already exist: " + request.email());
         }
-        Merchant merchant = Merchant.builder()
-                .name(request.name())
-                .email(request.email())
-                .businessName(request.businessName())
-                .businessType(request.businessType())
-                .status(MerchantStatus.PENDING_KYC)
-                .build();
+        Merchant merchant = merchantMapper.toEntityFromSignupRequest(request);
+        merchant.setStatus(MerchantStatus.PENDING_KYC);
 
         merchant =  merchantRepository.save(merchant);
 
@@ -49,7 +46,6 @@ public class AuthServiceImpl implements AuthService {
 
         appUserRepository.save(appUser);
 
-        return new MerchantResponse(merchant.getId(), merchant.getName(), merchant.getEmail(),
-                merchant.getBusinessName(), merchant.getBusinessType(), merchant.getStatus());
+        return merchantMapper.toMerchantResponse(merchant);
     }
 }

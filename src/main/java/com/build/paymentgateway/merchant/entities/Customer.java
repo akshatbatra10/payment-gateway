@@ -6,7 +6,11 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customer",
+        indexes = {
+                @Index(name = "idx_customer_merchant_id", columnList = "merchant_id"),
+                @Index(name = "idx_customer_email", columnList = "email")
+        })
 public class Customer extends Auditable {
 
     @Id
@@ -20,7 +24,7 @@ public class Customer extends Auditable {
     @Column(length = 150)
     private String name;
 
-    @Column(length = 150)
+    @Column(length = 150, unique = true)
     private String email;
 
     @Column(length = 150)

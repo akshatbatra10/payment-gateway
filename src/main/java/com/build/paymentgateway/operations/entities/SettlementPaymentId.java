@@ -1,5 +1,6 @@
 package com.build.paymentgateway.operations.entities;
 
+import com.build.paymentgateway.common.entity.Auditable;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
@@ -7,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Embeddable
-public class SettlementPaymentId implements Serializable {
+public class SettlementPaymentId extends Auditable implements Serializable {
 
     private UUID settlementId;
     private UUID paymentId;

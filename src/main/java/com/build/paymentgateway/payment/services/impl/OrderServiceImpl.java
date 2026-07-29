@@ -9,6 +9,7 @@ import com.build.paymentgateway.payment.dtos.response.OrderResponse;
 import com.build.paymentgateway.payment.dtos.response.PaymentResponse;
 import com.build.paymentgateway.payment.entities.OrderRecord;
 import com.build.paymentgateway.payment.entities.Payment;
+import com.build.paymentgateway.payment.mapper.OrderMapper;
 import com.build.paymentgateway.payment.mapper.PaymentMapper;
 import com.build.paymentgateway.payment.repositories.OrderRepository;
 import com.build.paymentgateway.payment.repositories.PaymentRepository;
@@ -30,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final PaymentRepository paymentRepository;
     private final PaymentMapper paymentMapper;
+    private final OrderMapper orderMapper;
 
     @Value("${payment.order.default-order-expiry-seconds:1800}")
     private int defaultExpirySeconds = 3600;
@@ -52,17 +54,7 @@ public class OrderServiceImpl implements OrderService {
 
         order = orderRepository.save(order);
 
-        return new OrderResponse(
-                order.getId(),
-                order.getMerchantId(),
-                order.getReceipt(),
-                order.getAmount(),
-                order.getOrderStatus(),
-                order.getAttempts(),
-                order.getNotes(),
-                order.getExpiresAt(),
-                null
-        );
+        return orderMapper.toOrderResponse(order);
     }
 
     @Override
@@ -70,17 +62,7 @@ public class OrderServiceImpl implements OrderService {
         OrderRecord order = orderRepository.findByIdAndMerchantId(orderId, merchantId)
                 .orElseThrow(() -> new ResourceNotFoundException("Order", orderId));
 
-        return new OrderResponse(
-                order.getId(),
-                order.getMerchantId(),
-                order.getReceipt(),
-                order.getAmount(),
-                order.getOrderStatus(),
-                order.getAttempts(),
-                order.getNotes(),
-                order.getExpiresAt(),
-                null
-        );
+        return orderMapper.toOrderResponse(order);
     }
 
     @Override
@@ -96,17 +78,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus(OrderStatus.CANCELLED);
         orderRepository.save(order);
 
-        return new OrderResponse(
-                order.getId(),
-                order.getMerchantId(),
-                order.getReceipt(),
-                order.getAmount(),
-                order.getOrderStatus(),
-                order.getAttempts(),
-                order.getNotes(),
-                order.getExpiresAt(),
-                null
-        );
+        return orderMapper.toOrderResponse(order);
     }
 
     @Override

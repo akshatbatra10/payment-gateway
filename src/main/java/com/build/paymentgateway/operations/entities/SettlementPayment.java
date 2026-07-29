@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "settlement_payment")
-public class SettlementPayment extends CreatedAuditable {
+public class SettlementPayment {
 
     @EmbeddedId
     private SettlementPaymentId settlementPaymentId;

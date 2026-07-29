@@ -7,6 +7,7 @@ import com.build.paymentgateway.merchant.dtos.response.ApiKeyResponse;
 import com.build.paymentgateway.merchant.dtos.response.CreateApiKeyResponse;
 import com.build.paymentgateway.merchant.entities.ApiKey;
 import com.build.paymentgateway.merchant.entities.Merchant;
+import com.build.paymentgateway.merchant.mapper.ApiKeyMapper;
 import com.build.paymentgateway.merchant.repository.ApiKeyRepository;
 import com.build.paymentgateway.merchant.repository.MerchantRepository;
 import com.build.paymentgateway.merchant.services.ApiKeyService;
@@ -24,6 +25,7 @@ public class ApiKeyServiceImpl implements ApiKeyService {
 
     private final ApiKeyRepository apiKeyRepository;
     private final MerchantRepository merchantRepository;
+    private final ApiKeyMapper apiKeyMapper;
 
     @Override
     @Transactional
@@ -53,16 +55,7 @@ public class ApiKeyServiceImpl implements ApiKeyService {
 
         List<ApiKey> apiKeys = apiKeyRepository.findByMerchant_Id(merchantId);
 
-        return apiKeys.stream()
-                .map(apiKey -> new ApiKeyResponse(
-                        apiKey.getId(),
-                        apiKey.getApiKey(),
-                        apiKey.getEnvironment(),
-                        apiKey.isEnabled(),
-                        apiKey.getLastUsedAt(),
-                        null
-                ))
-                .toList();
+        return apiKeyMapper.toApiKeyResponseList(apiKeys);
     }
 
     @Override
